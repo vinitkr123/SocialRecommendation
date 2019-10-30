@@ -60,40 +60,18 @@ public class Utilities extends HttpServlet {
     public void printHtml(String file) {
         String result = HtmlToString(file);
         //to print the right navigation in header of username cart and logout etc
-   /*     if (file.equals("Header.html")) {
+        if (file.equals("Header.html")) {
             result = result + "<div id='menu' style='float: right;'><ul>";
             if (session.getAttribute("username") != null) {
                 String username = session.getAttribute("username").toString();
                 username = Character.toUpperCase(username.charAt(0)) + username.substring(1);
-
-                String userType = session.getAttribute("userType").toString();
-                switch (userType) {
-                    case "Customer":
-                        result = result + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a><span class='glyphicon'>Hello, " + username + "</span></a></li>"
-                                + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Account'><span class='glyphicon'>Account</span></a></li>"
-
+                        result = result +"<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a><span class='glyphicon'>Hello, " + username + "</span></a></li>"
                                 + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Logout'><span class='glyphicon'>Logout</span></a></li>";
-                        break;
-                    case "StoreManager":
-                        result = result + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='StoreManagerHome'><span class='glyphicon'>ViewProduct</span></a></li>"
-                                + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a><span class='glyphicon'>Hello, " + username + "</span></a></li>"
-                                +"<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='DataVisualization'><span class='glyphicon'>Trending</span></a></li>"
-                                +"<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='DataAnalytics'><span class='glyphicon'>DataAnalytics</span></a></li>"
-                                +"<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Inventory'><span class='glyphicon'>Inventory</span></a></li>"
-                                +"<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='SalesReport'><span class='glyphicon'>SalesReport</span></a></li>"
-                                +"<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Logout'><span class='glyphicon'>Logout</span></a></li>";
-                        break;
-                    case "Salesman":
-                        result = result + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='SalesmanHome'><span class='glyphicon'>ViewOrder</span></a></li>"
-                                + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a><span class='glyphicon'>Hello, " + username + "</span></a></li>"
-                                + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Logout'><span class='glyphicon'>Logout</span></a></li>";
-                        break;
-                }
             } else
                 result = result + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='ViewOrder'><span class='glyphicon'>ViewOrder</span></a></li>" + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Login'><span class='glyphicon'>Login</span></a></li>";
-            result = result + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Cart'><span class='glyphicon'>Cart(" + 0 + ")</span></a></li></ul></div></div><div id='page'>";
+            result = result + "</ul></div></div><div id='page'>";
             pw.print(result);
-        } else*/
+        } else
             pw.print(result);
     }
     
