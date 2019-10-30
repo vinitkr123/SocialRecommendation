@@ -28,19 +28,34 @@ public class MySQLDataStoreUtilities {
 		}
 	}
 
-	public static boolean insertUser(String username, String password, String rePassword, String userType) {
+	public static boolean insertUser(String username, String email,String preference,String password, String rePassword, String  streetaddress,
+			String cityname,String state,String zipcode,String country,String latlong) {
 		try {
-
+			HashMap<String, User> map_Insertuser= new HashMap<String, User>();
 			getConnection();
-			String insertIntoCustomerRegisterQuery = "INSERT INTO registration(username,password,repassword,usertype) "
-					+ "VALUES (?,?,?,?);";
+			String insertIntoCustomerRegisterQuery = "INSERT INTO registration VALUES ("
+					+ "?,?,?,?,?,?,?,?,?,?,?,?);";
+			String pattern = "MM-dd-yyyy";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
+			String date = simpleDateFormat.format(new Date());
+			System.out.println(date);
+			
 			PreparedStatement pst = conn.prepareStatement(insertIntoCustomerRegisterQuery);
 			pst.setString(1, username);
-			pst.setString(2, password);
-			pst.setString(3, rePassword);
-			pst.setString(4, userType);
+			pst.setString(2, email);
+			pst.setString(3, email);
+			pst.setString(4, password);
+			pst.setString(5, streetaddress);
+			pst.setString(6, cityname);
+			pst.setString(7, state);
+			pst.setString(8, zipcode);
+			pst.setString(9, country);
+			pst.setString(10, preference);
+			pst.setString(11, String.valueOf(date));
+			pst.setString(12, latlong);
 			pst.execute();
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return false;
@@ -57,7 +72,7 @@ public class MySQLDataStoreUtilities {
 			String selectCustomerQuery = "select * from registration";
 			ResultSet rs = stmt.executeQuery(selectCustomerQuery);
 			while (rs.next()) {
-				User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("usertype"));
+				User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("email"));
 				hm.put(rs.getString("username"), user);
 			}
 		} catch (Exception e) {

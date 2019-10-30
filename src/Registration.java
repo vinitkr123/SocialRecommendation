@@ -30,9 +30,19 @@ public class Registration extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String repassword = request.getParameter("repassword");
+		String email = request.getParameter("email");
+		String streetaddress = request.getParameter("streetaddress");
+		String aptno = request.getParameter("aptno");
+		streetaddress= streetaddress.concat(" "+aptno);
+		String cityname = request.getParameter("cityname");
+		String state = request.getParameter("state");
+		String zipcode = request.getParameter("zipcode");
+		String country = request.getParameter("country");
+		String latlong = request.getParameter("latlong");
+		String preference = null;
 		String usertype = "customer";
 		if (!utility.isLoggedin())
-			usertype = request.getParameter("userType");
+			usertype = request.getParameter("email");
 
 		if (!password.equals(repassword)) {
 			error_msg = "Passwords doesn't match!";
@@ -49,7 +59,8 @@ public class Registration extends HttpServlet {
 
 				User user = new User(username, password, usertype);
 				hm.put(username, user);
-				if (MySQLDataStoreUtilities.insertUser(username, password, repassword, usertype)) {
+				if (MySQLDataStoreUtilities.insertUser(username,   email,preference,password, repassword, streetaddress,
+						cityname,state,zipcode,country,latlong)) {
 					HttpSession session = request.getSession(true);
 					session.setAttribute("login_msg", "Your " + usertype + " account has been created. Please login");
 					if (!utility.isLoggedin()) {
@@ -95,19 +106,19 @@ public class Registration extends HttpServlet {
 				+ "</td></tr><tr><td>"
 				+ "<h3>Address</h3></td><td style='padding-bottom: 5px;'><input id='autocomplete' placeholder='Enter your address'  onFocus='geolocate()' type='text' class='form-control' style='height: 34px;box-shadow: none;border: 1px solid darkgray;border-radius: 4px;padding: 0px;'>"
 				+ "</td></tr><tr><td>"
-				+ "<h3>Street Address</h3></td><td style='padding-bottom: 5px'><input class='form-control' id='street_number' disabled='true' style='padding: 0px;'>"
+				+ "<h3>Street No</h3></td><td style='padding-bottom: 5px'><input class='form-control' required id='street_number' name='streetaddress' disabled='true' style='padding: 0px;'>"
 				+ "</td></tr><tr><td>"
-				+ "<h3>Apt no.</h3></td><td style='padding-bottom: 5px'><input class='form-control' id='route' disabled='true' style='padding: 0px;'>"
+				+ "<h3>Street</h3></td><td style='padding-bottom: 5px'><input class='form-control' id='route' disabled='true' name ='aptno' style='padding: 0px;'>"
 				+ "</td></tr><tr><td>"
-				+ "<h3>City</h3></td><td style='padding-bottom: 5px'><input class='form-control field' id='locality' disabled='true' style='padding: 0px;'>"
+				+ "<h3>City</h3></td><td style='padding-bottom: 5px'><input class='form-control field' id='locality' name ='cityname' disabled='true' style='padding: 0px;'>"
 				+ "</td></tr><tr><td>"
-				+ "<h3>State</h3></td><td style='padding-bottom: 5px'><input class='form-control' id='administrative_area_level_1' disabled='true' style='padding: 0px;'>"
+				+ "<h3>State</h3></td><td style='padding-bottom: 5px'><input class='form-control' id='administrative_area_level_1' name ='state' disabled='true' style='padding: 0px;'>"
 				+ "</td></tr><tr><td>"
-				+ "<h3>Zipcode</h3></td><td style='padding-bottom: 5px'><input class='form-control' id='postal_code' disabled='true' style='padding: 0px;'>"
+				+ "<h3>Zipcode</h3></td><td style='padding-bottom: 5px'><input class='form-control' id='postal_code' disabled='true' name ='zipcode' style='padding: 0px;'>"
 				+ "</td></tr><tr><td>"
-				+ "<h3>Country</h3></td><td style='padding-bottom: 5px'><input class='form-control' id='country' disabled='true' style='padding: 0px;'>"
+				+ "<h3>Country</h3></td><td style='padding-bottom: 5px'><input class='form-control' id='country' disabled='true' name ='country' style='padding: 0px;'>"
 				+ "</td></tr><tr><td>"
-				+ "<h3>Latlong</h3></td><td style='padding-bottom: 5px'><input class='form-control' id='longlat' disabled='true' style='padding: 0px;'>"
+				+ "<h3>Latlong</h3></td><td style='padding-bottom: 5px'><input class='form-control'  type = 'text' id='longlat' name ='latlong' style='padding: 0px;'>"
 				+ "</td></tr><tr><td style='padding-top: 20px;padding-bottom: 10px;'>"
 				+ "<h3>Preferance</h3></td><td>"
 				+ "</td></tr><tr><td style='font-size: 18px'>"
