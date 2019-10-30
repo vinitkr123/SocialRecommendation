@@ -1,0 +1,171 @@
+<script>
+var placeSearch, autocomplete;
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name'
+};
+
+function initAutocomplete() {
+  // Create the autocomplete object, restricting the search to geographical
+  // location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+      {types: ['geocode']});
+
+  // When the user selects an address from the dropdown, populate the address
+  // fields in the form.
+  autocomplete.addListener('place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+
+  for (var component in componentForm) {
+    document.getElementById(component).value = '';
+    document.getElementById(component).disabled = false;
+  }
+
+  // Get each component of the address from the place details
+  // and fill the corresponding field on the form.
+  for (var i = 0; i < place.address_components.length; i++) {
+    var addressType = place.address_components[i].types[0];
+    if (componentForm[addressType]) {
+      var val = place.address_components[i][componentForm[addressType]];
+      document.getElementById(addressType).value = val;
+    }
+    
+    var map = new google.maps.Map("", {
+        zoom: 1,
+        center: {lat: -34.397, lng: 150.644}
+      }); 
+      var geocoder = new google.maps.Geocoder();
+        geocodeAddress(geocoder, map);
+    
+  }
+}
+
+function geocodeAddress(geocoder, resultsMap) {
+	
+  var address = document.getElementById('autocomplete').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === 'OK') {
+      resultsMap.setCenter(results[0].geometry.location);
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+   document.getElementById('longlat').value=results[0].geometry.location;
+  });
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+	  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };  
+     // alert(geolocation);
+      var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: position.coords.accuracy
+      });
+      autocomplete.setBounds(circle.getBounds());
+    });
+  }
+}
+
+
+</script>
+
+
+
+<style>
+.container {
+  margin-top: 20px;
+  float: left;
+}
+
+</style>
+
+ <div style=" width: 967px;float:left;    margin-left: 25px;border: 2px solid #535C58;border-radius: 4px;"> 
+				<!-- Select Basic -->
+ 		<div class="form-group">
+					<div style="width:100%;padding-bottom:25px; padding-left: 60px;padding-top: 20px;">
+						<div style="width:70%;float:left;">
+						<input type="search" style="width:100%;border:0px;height:47px;border-radius:4px;padding-left: 10px;" placeholder="Search here" />
+						</div>
+						<div style="width:30%;float:left" >
+						<div style="background-color: #800000; float: left;width:38%;height:36px;margin-left:20px; padding: 12px 20px 0px 20px;text-align: center; border-radius: 4px;"><a style="font-size: 18px;color:#fff" href='Search'><span class='glyphicon'>Search</span></a></div>
+						</div>
+					</div>
+					
+					<div style="width: 86%;margin-top: 20px;border: 1px solid;height: 70px;padding-left: 8px;margin-left: 63px;margin-right: 80px;border-radius: 4px;float: left;">
+					<input type='checkbox' name='locationenabled' value='location_enabled' id='locationenabled' style='float:left;margin-top: 30px;margin-right: 10px;'>
+					<label class="control-label" style="padding-top: 17px;float:left;font-size: 24px;color: #3d3d3d;" for="selectbasic">Type</label>
+					<div class="col-md-3" style="padding-top: 11px;width: 31%!important">
+						<select id="selectbasic" name="selectbasic" class="form-control" style="box-shadow: 0px 0px 0px 0px;border: 0px;">
+							<option value="amusement_park">amusement_park</option>
+							<option value="bar">bar</option>
+							<option value="cafe">cafe</option>
+							<option value="shopping_mall">shopping_mall</option>
+							<option value="museum">museum</option>
+							<option value="night_club">night_club</option>
+							<option value="restaurant">restaurant</option>
+							<option value="tourist_attraction">tourist_attraction</option>
+						</select>
+						</div>
+						<div style="float: left;padding-top: 6px;">
+						 <label class="control-label" style="padding-left: 30px;font-size: 24px;" for="textinput">Location</label>
+					</div>
+							
+						<div class="col-md-3" style="float:left;padding-top: 11px;width: 31%!important">
+						
+<script src="https://cdn.jsdelivr.net/npm/places.js@1.16.6"></script>
+<script>
+	
+  var placesAutocomplete = places({
+    appId: 'social-1571281348700',
+    apiKey: 'AIzaSyAbgbsd1R1T4yzOzyJrp5uC3YTy1jIWgHg',
+    container: document.querySelector('#address-input')
+  });
+</script>
+							<input type="search" style="width:115%;border:0px;height:47px;border-radius:4px;padding-left: 15px;" id="address-input" placeholder="Where are we going?" />
+						</div>
+						</div>
+					</div>
+
+				</div>  
+ 
+<div class="container">
+	<div class="post">	
+		<table id="place" style="width: 100%;">
+			<tbody>
+				<tr style="height: 300px;width: 100%;border: 2px solid #800000;">
+					<td style="width: auto;">
+						<div id="cardviewholder" style="height: 300px;margin-left: 20px;width: 95%;margin-right: 20px;">
+						<div id="photoholder" style="width: 250px;height: 260px;background-color: green;vertical-align: middle;margin-left: 20px;margin-top: 20px;float: left;">
+    					</div>
+    					<div id="addresstag" style="width: auto;float:left;margin-top: 20px;width: 580px;font-size: 20px;font-weight: bolder;color: black;margin-left: 30px;height:40px;">Address :</div>
+    					<div id="completeaddress" style="width: 580px;float:left;font-size: 16px;color: black;margin-left: 30px;overflow-wrap: break-word;">
+    						<div id="streetaddress" style="width: 580px;float:left;font-size: 16px;color: black;overflow-wrap: break-word;height: 35px;">Street Address</div>
+    						<div id="city" style="width: 580px;float:left;font-size: 16px;color: black;overflow-wrap: break-word;height: 35px;">City</div>
+    						<div id="country" style="width: 580px;float:left;font-size: 16px;color: black;overflow-wrap: break-word;height: 35px;">Country</div>    					
+    					</div>
+    					<div id="viewreview"><input type='submit' value='View Review' class='btnreview' style='width:160px;background-color: #800000;margin-top: 20px;float: left;margin-left: 65px;height: 40px;font-size: 20px;border: none;'></div>
+    					<div id="writereview"><input type='submit' value='Write Review' class='btnreview' style='width:160px;margin-top: 20px;float: left;margin-left: 100px;height: 40px;font-size: 20px;background-color: #800000;border: none;'></div>
+    					</div>
+    				</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+  
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbgbsd1R1T4yzOzyJrp5uC3YTy1jIWgHg&libraries=places&callback=initAutocomplete" async defer></script> 

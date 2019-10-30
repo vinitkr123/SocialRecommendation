@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>BestDeal</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="style.css" rel="stylesheet" type="text/css" media="screen" />
+<!-- Links for Jquery and bootstrap css -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+<!-- jqurey script -->
+	$(document).ready(function() {
+
+		$('#myCarousel').carousel({
+			interval : 3000
+		})
+
+		$('.carousel .item').each(function() {
+			var next = $(this).next();
+			if (!next.length) {
+				next = $(this).siblings(':first');
+			}
+			next.children(':first-child').clone().appendTo($(this));
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	function imgPreview(fileDom) {
+		if (window.FileReader) {
+			var reader = new FileReader();
+		} else {
+			alert("Something bad happened! Please try again");
+		}
+
+		var file = fileDom.files[0];
+		var imageType = /^image\//;
+		if (!imageType.test(file.type)) {
+			alert("Something bad happened! Please try again");
+			return;
+		}
+		reader.onload = function(e) {
+			var img = document.getElementById("preview");
+			img.src = e.target.result;
+		};
+		reader.readAsDataURL(file);
+	}
+</script>
+
+<!--<script type="text/javascript">-->
+<!--onload = function() {-->
+<!--document.getElementById("catalog").selectedIndex = 1;-->
+<!--}-->
+<!--</script>-->
+
+<!-- Added by vinit for autocomplete places-->
+
+<script src="https://cdn.jsdelivr.net/npm/places.js@1.16.6"></script>
+<script>
+  var placesAutocomplete = places({
+    appId: 'social-1571281348700',
+    apiKey: 'AIzaSyAbgbsd1R1T4yzOzyJrp5uC3YTy1jIWgHg',
+    container: document.querySelector('#address-input')
+  });
+</script>
+<script type="text/javascript">
+	function removeCart(itemName) {
+		document.getElementById('CartForm').action = "RemoveCart?action=removeCart&amp;itemName="
+				+ itemName;
+		document.getElementById('CartForm').submit();
+	}
+
+	// function removeCart(itemName) {
+	//
+	//     location.href = "${pageContext.request.contextPath}/RemoveCart?itemName=" + itemName;
+	// }
+</script>
+<style>
+* {
+	box-sizing: unset;
+}
+
+.col-md-6 {
+	width: 45% ! important;
+}
+</style>
+</head>
+<body
+	style='margin: 0px !important; padding: 0 !important; background: #fff8e7!important; font-family: Georgia, "Times New Roman", Times, serif; font-size: 12px !important;'>
+	<!--<script type="text/javascript" src="autocomplete.js"></script>-->
+	<!-- Start #logo top content of the webpage-->
+	<div id="logo" style="height: auto!important;">
+
+		<form class="form-horizontal">
+			<fieldset>
+
+				<!-- Form Name -->
+				
+				<legend style="border-bottom:0px;padding-bottom:25px;width:57%;float:left">
+					<h2 style="font-size:45px;text-align: left;font-weight: bolder!important;color: #800000!important;">Social Recommendation System</h2>
+				</legend>
+				<div id='menu' style='float: right;'>
+					<ul>
+						<li style='background-color: #800000;border: 1px solid #fff8e7;'><a href='ViewOrder'><span class='glyphicon'>ViewOrder</span></a></li>
+						<li style='background-color: #800000;border: 1px solid #fff8e7;'><a href='Login'><span class='glyphicon'>Login</span></a></li>
+						<li style='background-color: #800000;border: 1px solid #fff8e7;'><a href='Cart'><span class='glyphicon'>Cart(0)</span></a></li>
+					</ul>
+				</div>
+
+				
