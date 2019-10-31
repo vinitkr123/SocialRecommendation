@@ -124,6 +124,19 @@ public class User implements Serializable{
 		this.country = country;
 		this.latlong = latlong;
 	}
-	
+
+	public User(String latlong) {
+		super();
+		this.latlong = latlong;
+	}
+
+	public User(String name, String password, String usertype,String latlong) {
+		this.name=name;
+		this.password=password;
+		this.usertype=usertype;
+		this.latlong = latlong;
+	}
+
+
 	
 }

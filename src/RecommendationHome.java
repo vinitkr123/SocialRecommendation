@@ -1,14 +1,17 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
@@ -147,30 +150,4 @@ public class RecommendationHome extends HttpServlet {
 	}
 
 	
-	
-	/* class TextSearchList{
-		 List<TextSearch> list;
-		 //getter and setter
-	}
-	
-	 class Data {
-	    private String title;
-	    private Long id;
-	    private Boolean children;
-	    private List<Data> groups;
-
-	    public String getTitle() { return title; }
-	    public Long getId() { return id; }
-	    public Boolean getChildren() { return children; }
-	    public List<Data> getGroups() { return groups; }
-
-	    public void setTitle(String title) { this.title = title; }
-	    public void setId(Long id) { this.id = id; }
-	    public void setChildren(Boolean children) { this.children = children; }
-	    public void setGroups(List<Data> groups) { this.groups = groups; }
-
-	    public String toString() {
-	        return String.format("title:%s,id:%d,children:%s,groups:%s", title, id, children, groups);
-	    }
-	} */
 }

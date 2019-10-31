@@ -63,6 +63,7 @@ public class Registration extends HttpServlet {
 						cityname,state,zipcode,country,latlong)) {
 					HttpSession session = request.getSession(true);
 					session.setAttribute("login_msg", "Your " + usertype + " account has been created. Please login");
+					
 					if (!utility.isLoggedin()) {
 						response.sendRedirect("Login");
 						return;
