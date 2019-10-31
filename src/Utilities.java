@@ -68,7 +68,7 @@ public class Utilities extends HttpServlet {
                         result = result +"<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a><span class='glyphicon'>Hello, " + username+"</span></a></li>"
                                 + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Logout'><span class='glyphicon'>Logout</span><div id='latitude'>"+session.getAttribute("latitute")+"</div></a></li>";
             } else
-                result = result + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='ViewOrder'><span class='glyphicon'>ViewOrder</span></a></li>" + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Login'><span class='glyphicon'>Login</span></a></li>";
+                result = result + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Login'><span class='glyphicon'>Login</span></a></li>";
             result = result + "</ul></div></div><div id='page'>";
             pw.print(result);
         } else
