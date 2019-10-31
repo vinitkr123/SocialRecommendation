@@ -18,7 +18,7 @@ public class Login extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String userType = request.getParameter("email");
+		String userType = request.getParameter("username");
 
 		HashMap<String, User> hm = new HashMap<String, User>();
 		try {
@@ -33,6 +33,8 @@ public class Login extends HttpServlet {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("username", username);
 				session.setAttribute("userType", userType);
+				session.setAttribute("latitute", user.getLatlong());
+				System.out.println("value set in session"+user.getLatlong());
 				response.sendRedirect("Home");
 				return;
 			}

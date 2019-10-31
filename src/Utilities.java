@@ -62,11 +62,11 @@ public class Utilities extends HttpServlet {
         //to print the right navigation in header of username cart and logout etc
         if (file.equals("Header.html")) {
             result = result + "<div id='menu' style='float: right;'><ul>";
-            if (session.getAttribute("username") != null) {
-                String username = session.getAttribute("username").toString();
+            if (session.getAttribute("userType") != null) {
+                String username = session.getAttribute("userType").toString();
                 username = Character.toUpperCase(username.charAt(0)) + username.substring(1);
-                        result = result +"<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a><span class='glyphicon'>Hello, " + username + "</span></a></li>"
-                                + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Logout'><span class='glyphicon'>Logout</span></a></li>";
+                        result = result +"<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a><span class='glyphicon'>Hello, " + username+"</span></a></li>"
+                                + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Logout'><span class='glyphicon'>Logout</span><div id='latitude'>"+session.getAttribute("latitute")+"</div></a></li>";
             } else
                 result = result + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='ViewOrder'><span class='glyphicon'>ViewOrder</span></a></li>" + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Login'><span class='glyphicon'>Login</span></a></li>";
             result = result + "</ul></div></div><div id='page'>";
@@ -124,8 +124,7 @@ public class Utilities extends HttpServlet {
     /*  logout Function removes the username , usertype attributes from the session variable*/
 
     public void logout() {
-        session.removeAttribute("username");
-        session.removeAttribute("usertype");
+        session.invalidate();
     }
 
     /*  logout Function checks whether the user is loggedIn or Not*/
