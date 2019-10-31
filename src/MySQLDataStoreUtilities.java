@@ -55,7 +55,7 @@ public class MySQLDataStoreUtilities {
 			pst.setString(11, String.valueOf(date));
 			pst.setString(12, latlong);
 			pst.execute();
-			
+			User user = new User(latlong);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return false;
@@ -72,9 +72,10 @@ public class MySQLDataStoreUtilities {
 			String selectCustomerQuery = "select * from registration";
 			ResultSet rs = stmt.executeQuery(selectCustomerQuery);
 			while (rs.next()) {
-				User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("email"));
+				User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("email"),rs.getString("longlat"));
 				hm.put(rs.getString("username"), user);
 			}
+		
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
