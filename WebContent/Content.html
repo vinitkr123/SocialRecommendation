@@ -128,9 +128,14 @@
 	function callback(results, status) {
 		var data = [];
 		var senddata = {};
+		var photos={};
 		if (status == google.maps.places.PlacesServiceStatus.OK) {
 			for (var i = 0; i < results.length; i++) {
 				var place = results[i];
+				debugger;
+				//alert(place.photos);
+				//alert(google.maps.places.PlacesServiceStatus.place.photos[i].getUrl({maxWidht:300}));
+				debugger;
 				data.push({
 					"formatted_address" : place.formatted_address,
 					"icon" : place.icon,
@@ -138,7 +143,9 @@
 					"rating" : place.rating,
 					"user_ratings_total" : place.user_ratings_total
 				});
+								
 			}
+			debugger;
 			callajax(data);
 		}
 
@@ -162,21 +169,48 @@
 		$.ajax({
 			url : "RecommendationHome",
 			type : "POST",
-			dataType : 'json',
 			data : {
-				"seachdata" : mydata
+				"searchdata" : mydata
 			},
 			success : function(msg) {
-				createDataTable(msg)
+				document.getElementById("page").innerHTML=msg;
+				//createDataTable(msg)
 			},
 			error : function() {
-				console.log("error occurred while making ajax call;")
+				alert("error occurred while making ajax call;");
 			}
 		});
 	};
 </script>
 
+<script>
+function check()
+{
+	if(document.getElementById('locationenabled').checked)
+		{
+		enable('selectbasic');
+		enable('selectdistance');
+		enable('addressinput');
+		}
+	else
+		{
+		disable('selectbasic');
+		disable('selectdistance');	
+		disable('addressinput');
+		
+		}
+}
 
+function disable(id)
+{
+	document.getElementById(id).disabled = true;
+	}
+function enable(id)
+{
+	document.getElementById(id).disabled = false;
+	}
+
+</script>
 
 <style>
 .container {
@@ -185,46 +219,40 @@
 }
 </style>
 <div
-	style="width: 967px; float: left; margin-left: 25px; border: 2px solid #535C58; border-radius: 4px;">
+	style="width: 1024px; float: left; margin-left: 25px; border: 2px solid #535C58; border-radius: 4px;">
 	<!-- Select Basic -->
 	<div class="form-group">
 		<div
 			style="width: 100%; padding-bottom: 25px; padding-left: 60px; padding-top: 20px;">
 			<div style="width: 70%; float: left;">
 				<input type="text" name="txtSearch" id="txtSearch"
-					style="width: 100%; border: 0px; height: 47px; border-radius: 4px; padding-left: 10px;"
+					style="width: 100%; border: 0px; height: 47px; border-radius: 4px; padding-left: 10px; font-size: 30px"
 					placeholder="Search here" />
 
 			</div>
 			<div style="width: 30%; float: left">
 
-				<input type="button"
-					style="width: 100%; border: 0px; height: 47px; border-radius: 4px; padding-left: 10px;"
-					value="Search" id="btnsearch" onclick="initialize();" />
+				<!-- <input type="button"
+					style="style="background-color: #800000; float: left; width: 38%; height: 36px; margin-left: 20px; padding: 12px 20px 0px 20px; text-align: center; border-radius: 4px;""
+					value="Search" id="btnsearch" onclick="initialize();" /> -->
 
 				<div
 					style="background-color: #800000; float: left; width: 38%; height: 36px; margin-left: 20px; padding: 12px 20px 0px 20px; text-align: center; border-radius: 4px;">
-					<a style="font-size: 18px; color: #fff" href='Search'><span
-						class='glyphicon'>Search</span></a>
+					<a style="font-size: 18px; color: #fff" ><span
+						class='glyphicon' onclick="initialize();" >Search</span></a>
 				</div>
 			</div>
 		</div>
 		<div id="map"></div>
-		<script
+		<!-- <script
 			src="https://maps.googleapis.com/maps/api/place/textsearch/xml?query=restaurants+in+Sydney&key=AIzaSyAbgbsd1R1T4yzOzyJrp5uC3YTy1jIWgHg"
-			async defer></script>
+			async defer></script> -->
 
-		<div
-			style="width: 86%; margin-top: 20px; border: 1px solid; height: 70px; padding-left: 8px; margin-left: 63px; margin-right: 80px; border-radius: 4px; float: left;">
-			<input type='checkbox' name='locationenabled' id='locationenabled'
-				id='locationenabled'
-				style='float: left; margin-top: 30px; margin-right: 10px;'> <label
-				class="control-label"
-				style="padding-top: 17px; float: left; font-size: 24px; color: #3d3d3d;"
-				for="selectbasic">Type</label>
-			<div class="col-md-3" style="padding-top: 11px; width: 31% !important">
-				<select id="selectbasic" name="selectbasic" class="form-control"
-					style="box-shadow: 0px 0px 0px 0px; border: 0px;">
+		<div style="width: 87%;margin-top: 20px;border: 1px solid;height: 70px;padding-left: 8px;margin-left: 58px;margin-right: 80px;border-radius: 4px;float: left; margin-bottom: 18px;">
+		<input onclick='check();' type='checkbox' name='locationenabled' id='locationenabled' value='locationenabled' style='float: left; margin-top: 30px; margin-right: 10px;'>
+		<label class="control-label" style="padding-top: 17px; float: left; font-size: 24px; color: #3d3d3d;" for="selectbasic" >Type</label>
+			<div class="col-md-3" style="padding-top: 11px;width: 16%!important">
+				<select id="selectbasic" name="selectbasic" class="form-control" style="box-shadow: 0px 0px 0px 0px; border: 0px;" disabled>
 					<option value="amusement_park">amusement_park</option>
 					<option value="bar">bar</option>
 					<option value="cafe">cafe</option>
@@ -235,45 +263,23 @@
 					<option value="tourist_attraction">tourist_attraction</option>
 				</select>
 			</div>
-			<div style="float: left; padding-top: 6px;">
-				<label class="control-label" style="padding-left: 30px; font-size: 24px;"
-					for="textinput">Location</label>
+			<label class="distance-label" style="padding-top: 17px;float:left;font-size: 24px;color: #3d3d3d;margin-left: 26px;" for="selectdistance">Distance</label>
+			<div class="col-md-3" style="padding-top: 11px;width: 10%!important" >
+			<select disabled id="selectdistance" name="selectdistance" class="form-control" style="box-shadow: 0px 0px 0px 0px;border: 0px;">
+					<option value="tenmile">10 miles</option>
+					<option value="twentymile">20 miles</option>
+					<option value="fiftymile">50 miles</option>
+					<option value="hundredmile">100 miles</option>
+			</select>
 			</div>
+			<div style="float: left; padding-top: 11px;">
+				<label class="control-label" style="padding-left: 30px; font-size: 24px;margin-top: 6px;" for="textinput">Location</label>
+			</div>
+					<div class="col-md-3" style="float: left; padding-top: 11px; width: 19% !important">
 
-			<div class="col-md-3"
-				style="float: left; padding-top: 11px; width: 31% !important">
 
 				<script src="https://cdn.jsdelivr.net/npm/places.js@1.16.6"></script>
-				<script>
-					/* 
-					$("#btndsearch").click(function () {
-					var request="";
-					var name = '<% =session.getAttribute("latitude") %>';
-					alert(document.getElementById('latitude').innerHTML);
-					if(!document.getElementById("locationenabled").checked)
-					{
-					request ={txtSearch:document.getElementById("txtSearch").value};
-					
-					}
-					else 
-					{
-					request ={txtSearch:document.getElementById("txtSearch").value,
-					selectbasic:document.getElementById("selectbasic").value,
-					addressinput:document.getElementById("addressinput").value};
-					}
-					$.ajax({
-					url: "RecommendationHome",
-					type: "POST",
-					data:request,
-					success: function (msg) {
-					createDataTable(msg)            
-					},
-					error: function(){
-					console.log("error occurred while making ajax call;")
-					}
-					});    
-					}); */
-				</script>
+				
 				<script>
 					var placesAutocomplete = places({
 						appId : 'social-1571281348700',
@@ -281,14 +287,14 @@
 						container : document.querySelector('#address-input')
 					});
 				</script>
-				<input type="text"
-					style="width: 115%; border: 0px; height: 47px; border-radius: 4px; padding-left: 15px;"
-					id="addressinput" placeholder="Where are we going?" />
-			</div>
+								<input disabled type="text" style="width:100%;border:0px;height:47px;border-radius:4px;padding-left: 15px;" id="addressinput" placeholder="Where are we going?" />
+
 		</div>
 	</div>
-
 </div>
 
+<div id="page"></div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbgbsd1R1T4yzOzyJrp5uC3YTy1jIWgHg&libraries=places&callback=initAutocomplete" async defer></script> 
+
+

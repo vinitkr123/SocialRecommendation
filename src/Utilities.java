@@ -65,16 +65,15 @@ public class Utilities extends HttpServlet {
             if (session.getAttribute("userType") != null) {
                 String username = session.getAttribute("userType").toString();
                 username = Character.toUpperCase(username.charAt(0)) + username.substring(1);
-                        result = result +"<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a><span class='glyphicon'>Hello, " + username+"</span></a></li>"
-                                + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Logout'><span class='glyphicon'>Logout</span><div id='latitude'>"+session.getAttribute("latitute")+"</div></a></li>";
+                        result = result +"<li style='background-color: #800000; float: left;border: 1px solid #fff8e7; text-align: center; border-radius: 4px;'><a><span class='glyphicon'>Hello," + username+"</span></a></li>"
+                                + "<li style='background-color: #800000; float: left;  border: 1px solid #fff8e7;text-align: center; border-radius: 4px;'>><a href='Logout'><span class='glyphicon'>Logout</span><div id='latitude' style='display:none'>"+session.getAttribute("latitute")+"</div></a></li>";
             } else
-                result = result + "<li style='background-color: #535C5F;border: 1px solid #A7A5A5;'><a href='Login'><span class='glyphicon'>Login</span></a></li>";
+                result = result + "<li style='background-color: #800000; float: left;  border: 1px solid #fff8e7;text-align: center; border-radius: 4px;'><a href='Login' style=''><span class='glyphicon'>Login</span></a></li>";
             result = result + "</ul></div></div><div id='page'>";
             pw.print(result);
         } else
             pw.print(result);
     }
-    
    /* public int CartCount() {
         if (isLoggedin())
             return getCustomerOrders().size();
