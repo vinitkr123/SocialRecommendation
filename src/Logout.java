@@ -15,13 +15,13 @@ public class Logout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Utilities utility = new Utilities(request, null);
 		utility.logout();
-		response.sendRedirect("Home");
+		response.sendRedirect("Login");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Utilities utility = new Utilities(request, null);
 		utility.logout();
-		response.sendRedirect("Home");
+		response.sendRedirect("Login");
 	}
 
 }

@@ -35,7 +35,7 @@ public class Login extends HttpServlet {
 				session.setAttribute("userType", userType);
 				session.setAttribute("latitute", user.getLatlong());
 				System.out.println("value set in session"+user.getLatlong());
-				response.sendRedirect("Home");
+				response.sendRedirect("RecommendationHome");
 				return;
 			}
 		}
@@ -60,7 +60,7 @@ public class Login extends HttpServlet {
 		Utilities utility = new Utilities(request, pw);
 		utility.printHtml("Header.html");
 		pw.print("<div class='post' style='width: 50%;margin-left: 250px;float: left'>");
-		pw.print("<h2 class='title meta'><a style='font-size: 24px;color: #800000;font-weight: bolder;'>Login</a></h2>"
+		pw.print("<h2 class='title meta'><a style='font-size: 24px;color: #800000;font-weight: bolder;font-size:30px'>Login</a></h2>"
 				+ "<div class='entry'>"
 				+ "<div style='width:400px; margin:25px; margin-left: auto;margin-right: auto;'>");
 		if (error)
@@ -70,15 +70,17 @@ public class Login extends HttpServlet {
 			pw.print("<h4 style='color:red'>" + session.getAttribute("login_msg") + "</h4>");
 			session.removeAttribute("login_msg");
 		}
-		pw.print("<form method='post' action='Login'>" + "<table style='width:100%'><tr><td>"
-				+ "<h3>Username</h3></td><td><input type='text' name='username' value='' class='input' required></input>"
-				+ "</td></tr><tr><td>"
-				+ "<h3>Password</h3></td><td><input type='password' name='password' value='' class='input' required></input>"
-				+ "</td></tr><tr><td>"
-				+ "<input type='submit' class='btnbuy' value='Login' style='float: left;height: 20px margin: 20px; margin-right: 10px;width:50%;background-color: #800000;'></input>"
-				+ "</td></tr><tr><td></td><td>"
-				+ "<strong><a class='' href='Registration' style='float: right;height: 20px margin: 20px;'>New User? Register here!</a></strong>"
-				+ "</td></tr></table>" + "</form>" + "</div></div></div>");
+		 pw.print("<form method='post' action='Login'>"
+	                + "<table style='width:100%'><tr><td>"
+	                + "<h3 style='color: #000 !important;'>Username</h3></td><td style='padding-bottom:12px'><input type='text' class='form-control' name='username' value='' class='input' required></input>"
+	                + "</td></tr><tr><td>"
+	                + "<h3 style='color: #000 !important;'>Password</h3></td><td style='padding-bottom:12px'><input class='form-control' type='password' name='password' value='' class='input' required></input>"
+	                + "</td></tr><tr><td></td><td>"
+	                + "<input type='submit' class='btnbuy' value='Login' style='float: left;height: 20px margin: 20px; margin-right: 10px;width:50%;background-color: #800000;'></input>"
+	                + "</td></tr><tr><td></td><td style='padding-top: 10px;'>"
+	                + "<strong><a class='' href='Registration' style='float: right;height: 20px margin: 20px;color: black;'>New User? Register here!</a></strong>"
+	                + "</td></tr></table>"
+	                + "</form>" + "</div></div></div>");
 		utility.printHtml("Footer.html");
 	}
 }

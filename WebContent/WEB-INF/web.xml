@@ -19,8 +19,8 @@
     </servlet>
 
     <!--<servlet-mapping>-->
-        <!--<servlet-name>Startup</servlet-name>-->
-        <!--<url-pattern>Startup</url-pattern>-->
+        <!--<servlet-name>Login</servlet-name>-->
+        <!--<url-pattern>Login</url-pattern>-->
     <!--</servlet-mapping>-->
 
     <servlet>
