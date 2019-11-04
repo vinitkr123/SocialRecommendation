@@ -11,10 +11,10 @@ public class MySQLDataStoreUtilities {
 	public static String getConnection() {
 
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/SocialRecommendation?useUnicode=true&characterEncoding=utf-8", "root",
-					"vinit");
+					"root");
 			message = "Connection Successfull";
 			return message;
 		} catch (SQLException ex) {
