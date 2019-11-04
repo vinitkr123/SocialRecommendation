@@ -72,8 +72,8 @@ public class MySQLDataStoreUtilities {
 			String selectCustomerQuery = "select * from registration";
 			ResultSet rs = stmt.executeQuery(selectCustomerQuery);
 			while (rs.next()) {
-				User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("email"),rs.getString("longlat"));
-				hm.put(rs.getString("username"), user);
+				User user = new User(rs.getString("username"), rs.getString("password"), rs.getString("email"),rs.getString("longlat"),rs.getString("userid"));
+				hm.put(rs.getString("userid"), user);
 			}
 		
 		} catch (Exception e) {
@@ -81,6 +81,64 @@ public class MySQLDataStoreUtilities {
 		}
 		return hm;
 	}
+	
+	/* Nitika */
+	public static String insertReview(String name,String streetaddress,String reviewrating,String comment,String userid) {
+		try {
+			HashMap <String, Review> hm = new HashMap<String, Review>();
+			getConnection();
+			String insertreviewquery = "INSERT INTO Review (name, streetaddress,reviewrating,comment,userid)"
+					+ "VALUES( ?,?,?,?,?);";
+			PreparedStatement pst = conn.prepareStatement(insertreviewquery);
+			pst.setString(1, name);
+			pst.setString(2, streetaddress);
+			pst.setString(3, reviewrating);
+			pst.setString(4, comment);
+			pst.setString(5, userid);
+			pst.execute();
+			return "Successfull"; 
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			return "UnSuccessfull";
+		}
+	}
+	
+	public static HashMap<String, ArrayList<Review>> selectReview(String Name)
+	{	
+		HashMap<String, ArrayList<Review>> reviews=new HashMap<String, ArrayList<Review>>();;
+		try
+		{
+		getConnection();
+		Statement stmt = conn.createStatement();
+		String selectReviewQuery = "select * from Review where name = '"+Name+"'";
+		System.out.println("selectReviewQuery" + selectReviewQuery);
+		ResultSet rs = stmt.executeQuery(selectReviewQuery);
+		ArrayList<Review> listReview = new ArrayList<Review>();
+		while (rs.next()) {			
+//			   if(!reviews.containsKey(rs.getString("Name")))
+//				{	
+//					ArrayList<Review> arr = new ArrayList<Review>();
+//					reviews.put(rs.getString("Name"), arr);
+//				}
+				//ArrayList<Review> listReview = reviews.get(rs.getString("Name"));	
+				
+				Review review = new Review(rs.getString("Name"), rs.getString("streetaddress"),rs.getString("reviewrating"),rs.getString("comment"),rs.getString("userid"));
+				listReview.add(review);	
+				reviews.put(rs.getString("Name"), listReview);
+				
+				}
+		//return reviews;
+			}
+			catch(Exception e)
+			{	
+//				reviews=null;
+//				return reviews;
+				System.out.println(e.getMessage());
+			}	
+			return reviews;
+	}
+	
 
 	
 }

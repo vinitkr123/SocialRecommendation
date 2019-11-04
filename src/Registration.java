@@ -27,7 +27,7 @@ public class Registration extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		Utilities utility = new Utilities(request, pw);
 
-		String username = request.getParameter("username");
+		String userid = request.getParameter("userid");
 		String password = request.getParameter("password");
 		String repassword = request.getParameter("repassword");
 		String email = request.getParameter("email");
@@ -53,13 +53,13 @@ public class Registration extends HttpServlet {
 				hm = MySQLDataStoreUtilities.selectUser();
 			} catch (Exception e) {
 			}
-			if (hm.containsKey(username))
+			if (hm.containsKey(userid))
 				error_msg = "Username already exist as " + usertype;
 			else {
 
-				User user = new User(username, password, usertype);
-				hm.put(username, user);
-				if (MySQLDataStoreUtilities.insertUser(username,   email,preference,password, repassword, streetaddress,
+				User user = new User(userid, password, usertype);
+				hm.put(userid, user);
+				if (MySQLDataStoreUtilities.insertUser(userid,   email,preference,password, repassword, streetaddress,
 						cityname,state,zipcode,country,latlong)) {
 					HttpSession session = request.getSession(true);
 					session.setAttribute("login_msg", "Your " + usertype + " account has been created. Please login");
@@ -97,7 +97,7 @@ public class Registration extends HttpServlet {
 				"<script type='text/javascript' src ='geocode.js'>                                                                        ");
 		pw.println("</script>                                                                     ");
 		pw.print("<form method='post' action='Registration'>" + "<table style='width:100%'><tr><td>"
-				+ "<h3 style='color: #000 !important;'>Username</h3></td><td><input type='text' name='username' style='border: 1px solid darkgray;box-shadow: none;border-radius: 4px;height: 34px;border-shadow: none;padding-left: 7px;' value='' class='input' required></input>"
+				+ "<h3 style='color: #000 !important;'>Userid</h3></td><td><input type='text' name='userid' style='border: 1px solid darkgray;box-shadow: none;border-radius: 4px;height: 34px;border-shadow: none;padding-left: 7px;' value='' class='input' required></input>"
 				+ "</td></tr><tr><td>"
 				+ "<h3 style='color: #000 !important;'>Password</h3></td><td><input type='password' name='password' style='border: 1px solid darkgray;box-shadow: none;border-radius: 4px;height: 34px;border-shadow: none;padding-left: 7px;' value='' class='input' required></input>"
 				+ "</td></tr><tr><td>"

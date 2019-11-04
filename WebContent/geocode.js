@@ -39,6 +39,7 @@ function fillInAddress() {
       var val = place.address_components[i][componentForm[addressType]];
       document.getElementById(addressType).value = val;
     }
+  }
     
     var map = new google.maps.Map("", {
         zoom: 1,
@@ -46,8 +47,6 @@ function fillInAddress() {
       }); 
       var geocoder = new google.maps.Geocoder();
         geocodeAddress(geocoder, map);
-    
-  }
 }
 
 function geocodeAddress(geocoder, resultsMap) {
@@ -60,7 +59,10 @@ function geocodeAddress(geocoder, resultsMap) {
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     }
-   document.getElementById('longlat').value=results[0].geometry.location;
+    var latlong = results[0].geometry.location.toString();
+    // alert(latlong);
+    // alert(latlong.substring(1, latlong.length-1));
+   document.getElementById('longlat').value= latlong.substring(1, latlong.length-1);//results[0].geometry.location;
   });
 }
 

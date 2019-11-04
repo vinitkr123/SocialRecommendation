@@ -141,10 +141,24 @@ public class RecommendationHome extends HttpServlet {
 							+ "						Users Total Rating : "
 							+ arrayListTextSearch.get(i).getUser_ratings_total() + " </div>  ");
 			pw.println("      			</div>");
-			pw.println(
-					"				<div id='viewreview'><input type='submit' value='View Review' class='btnreview' style='width:160px;background-color: #800000;margin-top: 20px;float: left;margin-left: 65px;height: 40px;font-size: 20px;border: none;'></div>");
-			pw.println(
-					"				<div id='writereview'><input type='submit' value='Write Review' class='btnreview' style='width:160px;margin-top: 20px;float: left;margin-left: 100px;height: 40px;font-size: 20px;background-color: #800000;border: none;'></div>");
+			//pw.println(
+			//		"				<div id='viewreview'><input type='submit' value='View Review' class='btnreview' style='width:160px;background-color: #800000;margin-top: 20px;float: left;margin-left: 65px;height: 40px;font-size: 20px;border: none;'></div>");
+			//pw.println(
+			//		"				<div id='writereview'><input type='submit' value='Write Review' class='btnreview' style='width:160px;margin-top: 20px;float: left;margin-left: 100px;height: 40px;font-size: 20px;background-color: #800000;border: none;'></div>");
+			
+			pw.print("<div id='viewreview'><form method='post' action='ViewReview'>"+"<input type='hidden' name='name' value='"+arrayListTextSearch.get(i).getName()+"'>"+
+					"<input type='hidden' name='streetaddress' value='"+arrayListTextSearch.get(i).getFormatted_address()+"'>"+
+					"<input type='hidden' name='rating' value='"+arrayListTextSearch.get(i).getRating()+"'>"+
+					"<input type='hidden' name='userstotalrating' value='"+arrayListTextSearch.get(i).getUser_ratings_total()+"'>"+
+					"<input type='submit' value='View Review' class='btnreview' style='width:160px;background-color: #800000;margin-top: 20px;float: left;margin-left: 65px;height: 40px;font-size: 20px;border: none;' ></form></div>");
+			
+			pw.print("<div id='writereview'><form method='post' action='WriteReview'>"+"<input type='hidden' name='name' value='"+arrayListTextSearch.get(i).getName()+"'>"+
+					"<input type='hidden' name='streetaddress' value='"+arrayListTextSearch.get(i).getFormatted_address()+"'>"+
+					"<input type='hidden' name='rating' value='"+arrayListTextSearch.get(i).getRating()+"'>"+
+					"<input type='hidden' name='userstotalrating' value='"+arrayListTextSearch.get(i).getUser_ratings_total()+"'>"+
+					"<input type='submit' value='Write Review' class='btnreview' style='width:160px;margin-top: 20px;float: left;margin-left: 100px;height: 40px;font-size: 20px;background-color: #800000;border: none;' ></form></div>");
+			
+			
 			pw.println("      		</td>");
 			pw.println("  		</tr>");
 			pw.println(" 	</tbody>");

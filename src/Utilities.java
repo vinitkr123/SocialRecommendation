@@ -131,6 +131,43 @@ public class Utilities extends HttpServlet {
     public boolean isLoggedin() {
         return session.getAttribute("username") != null;
     }
+    
+    
+    public String storeReview(String name,String streetaddress,String reviewrating,String comment){
+    	String message=MySQLDataStoreUtilities.insertReview(name,streetaddress,reviewrating,comment,session.getAttribute("userid").toString());
+    	if(!message.equals("Successfull"))
+		{ return "UnSuccessfull";
+		}
+		else
+		{
+		HashMap<String, ArrayList<Review>> reviews= new HashMap<String, ArrayList<Review>>();
+		try
+		{
+			reviews=MySQLDataStoreUtilities.selectReview(name);
+		}
+		catch(Exception e)
+		{
+			
+		}
+		if(reviews==null)
+		{
+			reviews = new HashMap<String, ArrayList<Review>>();
+		}
+			// if there exist product review already add it into same list for productname or create a new record with product name
+			
+		if(!reviews.containsKey(name)){	
+			ArrayList<Review> arr = new ArrayList<Review>();
+			reviews.put(name, arr);
+		}
+		ArrayList<Review> listReview = reviews.get(name);		
+		Review review = new Review(name,streetaddress,reviewrating,comment,session.getAttribute("userid").toString());
+		listReview.add(review);	
+			
+			// add Reviews into database
+		
+		return "Successfull";	
+		}
+	}
 
    
 }

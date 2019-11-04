@@ -34,6 +34,7 @@ public class Login extends HttpServlet {
 				session.setAttribute("username", username);
 				session.setAttribute("userType", userType);
 				session.setAttribute("latitute", user.getLatlong());
+				session.setAttribute("userid", user.getUserid());
 				System.out.println("value set in session"+user.getLatlong());
 				response.sendRedirect("RecommendationHome");
 				return;
