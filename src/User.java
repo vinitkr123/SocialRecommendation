@@ -21,6 +21,15 @@ public class User implements Serializable{
 	private String streetaddress;
 	private String cityname;
 	private String state;
+	private String userid;
+	
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 	
 	public String getStreetaddress() {
 		return streetaddress;
@@ -130,13 +139,13 @@ public class User implements Serializable{
 		this.latlong = latlong;
 	}
 
-	public User(String name, String password, String usertype,String latlong) {
+	public User(String name, String password, String usertype,String latlong,String userid) {
 		this.name=name;
 		this.password=password;
 		this.usertype=usertype;
 		this.latlong = latlong;
+		this.userid=userid;
 	}
-
 
 	
 }

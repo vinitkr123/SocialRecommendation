@@ -32,6 +32,7 @@ public class RecommendationHome extends HttpServlet {
 		Utilities utility = new Utilities(request, pw);
 		utility.printHtml("Header.html");
 		utility.printHtml("Content.html");
+		utility.printHtml("Footer.html");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,12 +41,7 @@ public class RecommendationHome extends HttpServlet {
 		String value = request.getParameter("searchdata");
 		PrintWriter pw = response.getWriter();
 		Utilities utility = new Utilities(request, pw);
-		String json = "{" + "'title': 'Computing and Information systems'," + "'id' : 1," + "'children' : 'true',"
-				+ "'groups' : [{" + "'title' : 'Level one CIS'," + "'id' : 2," + "'children' : 'true',"
-				+ "'groups' : [{" + "'title' : 'Intro To Computing and Internet'," + "'id' : 3,"
-				+ "'children': 'false'," + "'groups':[]" + "}]" + "}]" + "}";
-
-		json = "[" + "{" + "'formatted_address' : 'test add',"
+		String json = "[" + "{" + "'formatted_address' : 'test add',"
 				+ "'icon' : 'https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png',"
 				+ "'name' : 'TEst Name'," + "'rating' : '5'," + "'user_ratings_total' : 'user_ratings_total - 67' "
 				+ "}, " + "{" + "'formatted_address' : 'test add1',"
@@ -53,7 +49,6 @@ public class RecommendationHome extends HttpServlet {
 				+ "'name' : 'TEst Name1'," + "'rating' : '4'," + "'user_ratings_total' : 'user_ratings_total - 89' "
 				+ "}" + "]";
 
-		String jsonResponse = "";
 		json = value;
 		ArrayList<TextSearch> arrayListTextSearch = parseJsonTextSearchData(json);
 
@@ -111,7 +106,7 @@ public class RecommendationHome extends HttpServlet {
 
 		Utilities utility = new Utilities(request, pw);
 		//utility.printHtml("Header.html");
-		utility.printHtml("Content.html");
+		// utility.printHtml("Content.html");
 		if (error)
 			pw.print("<h4 style='color:red'>" + error_msg + "</h4>");
 
@@ -127,7 +122,7 @@ public class RecommendationHome extends HttpServlet {
 					"   				<div id='cardviewholder' style='height: 300px;margin-left: 20px;width: 95%;margin-right: 20px;'>");
 			pw.println(
 					"   					<div id='photoholder' style='width: 250px;height: 260px;background-color: green;vertical-align: middle;margin-left: 20px;margin-top: 20px;float: left;'>");
-			pw.println("                    <img src='" + arrayListTextSearch.get(i).getIcon() + "'>");
+			pw.println("                    <img style='width: 250px; height: 260px;' src='" + arrayListTextSearch.get(i).getPhoto_url() + "'>");
 			pw.println(" 					</div>");
 			pw.println(
 					"      			<div id='addresstag' style='width: auto;float:left;margin-top: 20px;width: 580px;font-size: 20px;font-weight: bolder;color: black;margin-left: 30px;height:40px;'>"
@@ -146,10 +141,24 @@ public class RecommendationHome extends HttpServlet {
 							+ "						Users Total Rating : "
 							+ arrayListTextSearch.get(i).getUser_ratings_total() + " </div>  ");
 			pw.println("      			</div>");
-			pw.println(
-					"				<div id='viewreview'><input type='submit' value='View Review' class='btnreview' style='width:160px;background-color: #800000;margin-top: 20px;float: left;margin-left: 65px;height: 40px;font-size: 20px;border: none;'></div>");
-			pw.println(
-					"				<div id='writereview'><input type='submit' value='Write Review' class='btnreview' style='width:160px;margin-top: 20px;float: left;margin-left: 100px;height: 40px;font-size: 20px;background-color: #800000;border: none;'></div>");
+			//pw.println(
+			//		"				<div id='viewreview'><input type='submit' value='View Review' class='btnreview' style='width:160px;background-color: #800000;margin-top: 20px;float: left;margin-left: 65px;height: 40px;font-size: 20px;border: none;'></div>");
+			//pw.println(
+			//		"				<div id='writereview'><input type='submit' value='Write Review' class='btnreview' style='width:160px;margin-top: 20px;float: left;margin-left: 100px;height: 40px;font-size: 20px;background-color: #800000;border: none;'></div>");
+			
+			pw.print("<div id='viewreview'><form method='post' action='ViewReview'>"+"<input type='hidden' name='name' value='"+arrayListTextSearch.get(i).getName()+"'>"+
+					"<input type='hidden' name='streetaddress' value='"+arrayListTextSearch.get(i).getFormatted_address()+"'>"+
+					"<input type='hidden' name='rating' value='"+arrayListTextSearch.get(i).getRating()+"'>"+
+					"<input type='hidden' name='userstotalrating' value='"+arrayListTextSearch.get(i).getUser_ratings_total()+"'>"+
+					"<input type='submit' value='View Review' class='btnreview' style='width:160px;background-color: #800000;margin-top: 20px;float: left;margin-left: 65px;height: 40px;font-size: 20px;border: none;' ></form></div>");
+			
+			pw.print("<div id='writereview'><form method='post' action='WriteReview'>"+"<input type='hidden' name='name' value='"+arrayListTextSearch.get(i).getName()+"'>"+
+					"<input type='hidden' name='streetaddress' value='"+arrayListTextSearch.get(i).getFormatted_address()+"'>"+
+					"<input type='hidden' name='rating' value='"+arrayListTextSearch.get(i).getRating()+"'>"+
+					"<input type='hidden' name='userstotalrating' value='"+arrayListTextSearch.get(i).getUser_ratings_total()+"'>"+
+					"<input type='submit' value='Write Review' class='btnreview' style='width:160px;margin-top: 20px;float: left;margin-left: 100px;height: 40px;font-size: 20px;background-color: #800000;border: none;' ></form></div>");
+			
+			
 			pw.println("      		</td>");
 			pw.println("  		</tr>");
 			pw.println(" 	</tbody>");
@@ -158,7 +167,7 @@ public class RecommendationHome extends HttpServlet {
 			pw.println("</div>");
 		}
 
-		//utility.printHtml("Footer.html");
+		// utility.printHtml("Footer.html");
 
 	}
 

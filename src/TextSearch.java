@@ -17,7 +17,15 @@ public class TextSearch {
 	@SerializedName("user_ratings_total")
 	private String user_ratings_total;
 	
+	@SerializedName("photo_url")
+	private String photo_url;
 	
+	public String getPhoto_url() {
+		return photo_url;
+	}
+	public void setPhoto_url(String photo_url) {
+		this.photo_url = photo_url;
+	}
 	public String getFormatted_address() {
 		return formatted_address;
 	}

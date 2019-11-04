@@ -9,7 +9,7 @@
 
     <!-- See the welcome-file Reference Material here: http://www.javatpoint.com/welcome-file-list -->
     <welcome-file-list>
-        <welcome-file>Home</welcome-file>
+        <welcome-file>RecommendationHome</welcome-file>
     </welcome-file-list>
 
     <servlet>
@@ -24,13 +24,13 @@
     <!--</servlet-mapping>-->
 
     <servlet>
-        <servlet-name>Home</servlet-name>
-        <servlet-class>Home</servlet-class>
+        <servlet-name>RecommendationHome</servlet-name>
+        <servlet-class>RecommendationHome</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Home</servlet-name>
-        <url-pattern>/Home</url-pattern>
+        <servlet-name>RecommendationHome</servlet-name>
+        <url-pattern>/RecommendationHome</url-pattern>
     </servlet-mapping>
 
     <servlet>

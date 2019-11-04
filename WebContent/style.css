@@ -636,3 +636,31 @@ body {
 #nav2>ul>li>ul>li>a:hover {
 	color:#ebeb00;
 }
+
+.input-search {
+	width: 100%;
+    /* border: 0px; */
+    height: 45px;
+    border-radius: 4px;
+    padding-left: 10px;
+    font-size: 30px;
+    border: 1px solid #b3b3b3;
+}
+
+.input-search-validation {
+    width: 100%;
+    /* border: 0px; */
+    height: 43px;
+    border-radius: 4px;
+    padding-left: 10px;
+    font-size: 30px;
+    border: 2px solid #ff0000;
+}
+
+.option-style {
+	box-shadow: none;
+}
+
+.option-style-error {
+	box-shadow: 0px 0px 5px 3px red !important;
+}
