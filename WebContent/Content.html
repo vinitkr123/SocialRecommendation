@@ -255,13 +255,16 @@
 			  results = JSON.parse(Http.responseText).businesses;
 			  for(var i=0; i< results.length; i++) {
 				  // var place = results[i];
+				 debugger;
 				  data.push({
 						"formatted_address" : results[i].location.display_address.toString(),
 						"icon" : results[i].image_url,
 						"name" : results[i].name,
 						"rating" : results[i].rating,
 						"user_ratings_total" : results[i].review_count,
-						"photo_url":results[i].image_url
+						"photo_url":results[i].image_url,
+						"lat":results[i].coordinates.latitude,
+						"lng":results[i].coordinates.longitude
 					});
 			  }
 			  callajax(data);
@@ -339,18 +342,20 @@
 				debugger;
 				//alert(place.photos);
 				//alert(place.photos[0].getUrl({maxWidht:300}));
-				debugger;
 				data.push({
 					"formatted_address" : place.formatted_address,
 					"icon" : place.icon,
 					"name" : place.name,
 					"rating" : place.rating,
 					"user_ratings_total" : place.user_ratings_total,
-					"photo_url": place.photos == null ? '' : place.photos[0].getUrl({maxWidht:300})
+					"photo_url": place.photos == null ? '' : place.photos[0].getUrl({maxWidth:300}),
+					"lat":place.geometry.location.lat(),
+					"lng":place.geometry.location.lng(),
+					"gmap":place.photos[0].html_attributions[0],
+					"placeId":place.place_id
 				});
 								
 			}
-			debugger;
 			callajax(data);
 		}
 
