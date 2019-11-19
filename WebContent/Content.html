@@ -402,10 +402,66 @@
 		});
 	};
 	
+	
+	function getCookie(cname) {
+		  var name = cname + "=";
+		  var decodedCookie = decodeURIComponent(document.cookie);
+		  var ca = decodedCookie.split(';');
+		  for(var i = 0; i <ca.length; i++) {
+		    var c = ca[i];
+		    while (c.charAt(0) == ' ') {
+		      c = c.substring(1);
+		    }
+		    if (c.indexOf(name) == 0) {
+		      return c.substring(name.length, c.length);
+		    }
+		  }
+		  return "";
+	}
+	
 	$(document).ready(function(){
-		geolocate();
+		// geolocate();
 		//Check When User is not logged in, call Yelp API and display the default data.
+		// If user is logged in, display the data through recommendation.
+		var username = getCookie("username");
+		if (username != "" && username != null) {
+			alert("Welcome again " + username);
+			callajaxToRecommend();
+		} else {
+	    	alert("Cookie Not Set");
+	    	geolocate();
+	  }
 	});
+	
+	function callajaxToRecommend() {
+		var data = [];
+		$.ajax({
+			url : "Recommend",
+			type : "POST",
+			success : function(msg) {
+				alert(msg);
+			  	results = JSON.parse(msg);
+			  	for(var i=0; i< results.length; i++) {
+				  	// var place = results[i];
+				  	data.push({
+						"formatted_address" : results[i].formatted_address,
+						"icon" : results[i].icon,
+						"name" : results[i].name,
+						"rating" : results[i].rating,
+						"user_ratings_total" : results[i].user_ratings_total,
+						"photo_url":results[i].photo_url,
+						// "photo_url":results[i].image_url,
+						"lat":results[i].lat,
+						"lng":results[i].lng
+					});
+			  	}
+			  	callajax(data);
+			},
+			error : function() {
+				alert("error occurred while making ajax call;");
+			}
+		});
+	};
 </script>
 
 <script>

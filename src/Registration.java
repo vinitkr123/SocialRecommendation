@@ -31,6 +31,7 @@ public class Registration extends HttpServlet {
 		String password = request.getParameter("password");
 		String repassword = request.getParameter("repassword");
 		String email = request.getParameter("email");
+		String userType = request.getParameter("usertype");
 		String streetaddress = request.getParameter("streetaddress");
 		String aptno = request.getParameter("aptno");
 		streetaddress= streetaddress.concat(" "+aptno);
@@ -59,8 +60,8 @@ public class Registration extends HttpServlet {
 
 				User user = new User(userid, password, usertype);
 				hm.put(userid, user);
-				if (MySQLDataStoreUtilities.insertUser(userid,   email,preference,password, repassword, streetaddress,
-						cityname,state,zipcode,country,latlong)) {
+				if (MySQLDataStoreUtilities.insertUser(userid,email,preference,password, repassword, streetaddress,
+						cityname,state,zipcode,country,latlong,userType)) {
 					HttpSession session = request.getSession(true);
 					session.setAttribute("login_msg", "Your " + usertype + " account has been created. Please login");
 					
@@ -104,6 +105,8 @@ public class Registration extends HttpServlet {
 				+ "<h3 style='color: #000 !important;'>Confirm Password</h3></td><td><input type='password' name='repassword' style='border: 1px solid darkgray;box-shadow: none;border-radius: 4px;height: 34px;border-shadow: none;padding-left: 7px;' value='' class='input' required></input>"
 				+ "</td></tr><tr><td>"
 				+ "<h3 style='color: #000 !important;'>Email(Username)</h3></td><td><input type='text' style='border: 1px solid darkgray;box-shadow: none;border-radius: 4px;height: 34px;border-shadow: none;padding-left: 7px;' name='email' value='' class='input' required></input>"
+				+ "</td></tr><tr><td>"
+				+ "<div style='color: #000 !important;'>User Type</div></td><td><select name='usertype' class='form-control' style='margin-bottom: 5px; width: 107%;'><option value='user' selected>User</option><option value='admin'>Admin</option></select>"
 				+ "</td></tr><tr><td>"
 				+ "<h3 style='color: #000 !important;'>Address</h3></td><td style='padding-bottom: 5px;'><input id='autocomplete' placeholder='Enter your address'  onFocus='geolocate()' type='text' class='form-control' style='height: 34px;box-shadow: none;border: 1px solid darkgray;border-radius: 4px;padding: 0px;padding-left: 7px;'>"
 				+ "</td></tr><tr><td>"

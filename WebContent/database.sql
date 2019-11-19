@@ -1,5 +1,7 @@
 CREATE SCHEMA SOCIALRECOMMENDATION; 
 
+USE SOCIALRECOMMENDATION;
+
 CREATE TABLE `login` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
@@ -35,3 +37,22 @@ CREATE TABLE `searchhistory` (
   `active_flag` varchar(10) DEFAULT NULL,
   `longlat` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `review` (
+  `name` varchar(100) DEFAULT NULL,
+  `streetaddress` varchar(200) DEFAULT NULL,
+  `reviewrating` varchar(20) DEFAULT NULL,
+  `comment` varchar(1000) DEFAULT NULL,
+  `userid` varchar(100) DEFAULT NULL,
+  `internetRating` varchar(40) DEFAULT NULL,
+  `userTotalRating` varchar(40) DEFAULT NULL,
+  `photoURL` varchar(5000) DEFAULT NULL,
+  `latitude` varchar(200) DEFAULT NULL,
+  `longitude` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+select * from registration;
+select * from searchhistory;
+select * from login;
+select * from review;
