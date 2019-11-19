@@ -84,7 +84,6 @@ public class RecommendationHome extends HttpServlet {
 			displayRegistration(req, resp, pw, false, arrayListTextSearch);
 
 			// ...code where you write to writer...
-			System.out.println(stringWriter.toString());
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -106,8 +105,6 @@ public class RecommendationHome extends HttpServlet {
 			}
 
 			// Show it.
-			System.out.println(data);
-			System.out.println(arrayList);
 			return arrayList;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -152,23 +149,33 @@ public class RecommendationHome extends HttpServlet {
 			pw.println(
 					"       				<div id='city' style='width: 580px;float:left;font-size: 16px;color: black;overflow-wrap: break-word;height: 35px;'>"
 							+ "Rating : " + arrayListTextSearch.get(i).getRating() + "</div>");
+			
 			pw.println(
-					"					<div id='country' style='width: 580px;float:left;font-size: 16px;color: black;overflow-wrap: break-word;height: 35px;'>"
+					"       				<div id='maps' style='width: 580px;float:left;font-size: 16px;color: black;overflow-wrap:"
+					+ " break-word;height: 35px;'><iframe width='300'  height='150' frameborder='0' style='border:0' "
+					+ "src='https://www.google.com/maps/embed/v1/place?key=AIzaSyAbgbsd1R1T4yzOzyJrp5uC3YTy1jIWgHg&zoom=14;&q="+arrayListTextSearch.get(i).getLat()+","+arrayListTextSearch.get(i).getLng()+"' allowfullscreen></iframe></div>");
+/*+ "src='https://www.google.com/maps/embed/v1/view?key=AIzaSyAbgbsd1R1T4yzOzyJrp5uC3YTy1jIWgHg &center="+arrayListTextSearch.get(i).getLat()+","+arrayListTextSearch.get(i).getLng()+"&maptype=roadmap&zoom=18' allowfullscreen></iframe></div>");
+*/
+			
+			pw.println(
+					"				<div id='map2'></div>	<div id='country' style='width: 580px;float:left;font-size: 16px;color: black;overflow-wrap: break-word;height: 35px;'>"
 							+ "						Users Total Rating : "
 							+ arrayListTextSearch.get(i).getUser_ratings_total() + " </div>  ");
-			pw.println("      			</div>");
 			//pw.println(
 			//		"				<div id='viewreview'><input type='submit' value='View Review' class='btnreview' style='width:160px;background-color: #800000;margin-top: 20px;float: left;margin-left: 65px;height: 40px;font-size: 20px;border: none;'></div>");
 			//pw.println(
 			//		"				<div id='writereview'><input type='submit' value='Write Review' class='btnreview' style='width:160px;margin-top: 20px;float: left;margin-left: 100px;height: 40px;font-size: 20px;background-color: #800000;border: none;'></div>");
 			
-			pw.print("<div id='viewreview'><form method='post' action='ViewReview'>"+
-					"<input type='hidden' name='name' value='"+arrayListTextSearch.get(i).getName()+"'>"+
-					"<input type='hidden' name='streetaddress' value='"+arrayListTextSearch.get(i).getFormatted_address()+"'>"+
+
+			pw.print("<div id='viewreview'><form method='post' action='ViewReview'>"+"<input type='hidden' name='name' value='"+arrayListTextSearch.get(i).getName()+"'>"+
+					"<input type='hidden' name='streetaddress'  value='"+arrayListTextSearch.get(i).getFormatted_address()+"'>"+
+					"<input type='hidden' name='lat' id ='lat' value='"+arrayListTextSearch.get(i).getLat()+"'>"+
+					"<input type='hidden' name='lng' id ='lng' value='"+arrayListTextSearch.get(i).getLng()+"'>"+
 					"<input type='hidden' name='rating' value='"+arrayListTextSearch.get(i).getRating()+"'>"+
 					"<input type='hidden' name='userstotalrating' value='"+arrayListTextSearch.get(i).getUser_ratings_total()+"'>"+
 					"<input type='submit' value='View Review' class='btnreview' style='width:160px;background-color: #800000;margin-top: 20px;float: left;margin-left: 65px;height: 40px;font-size: 20px;border: none;' ></form></div>");
 			
+
 			pw.print("<div id='writereview'><form method='post' action='WriteReview'>"+
 					"<input type='hidden' name='name' value='"+arrayListTextSearch.get(i).getName()+"'>"+
 					"<input type='hidden' name='streetaddress' value='"+arrayListTextSearch.get(i).getFormatted_address()+"'>"+
