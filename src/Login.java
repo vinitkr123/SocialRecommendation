@@ -3,6 +3,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +19,7 @@ public class Login extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String userType = request.getParameter("username");
+		// String userType = request.getParameter("username");
 
 		HashMap<String, User> hm = new HashMap<String, User>();
 		try {
@@ -32,11 +33,19 @@ public class Login extends HttpServlet {
 			if (password.equals(user_password)) {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("username", username);
-				session.setAttribute("userType", userType);
+				// session.setAttribute("userType", userType);
+				Cookie cookie = new Cookie("username", username);
+				response.addCookie(cookie);
+				session.setAttribute("userType", user.getUsertype());
 				session.setAttribute("latitute", user.getLatlong());
 				session.setAttribute("userid", user.getUserid());
 				System.out.println("value set in session"+user.getLatlong());
-				response.sendRedirect("RecommendationHome");
+				// response.sendRedirect("RecommendationHome");
+				if(user.getUsertype().equals("user")) {
+					response.sendRedirect("RecommendationHome");
+				} else if(user.getUsertype().equals("admin")){
+					response.sendRedirect("AdminHome");
+				}
 				return;
 			}
 		}

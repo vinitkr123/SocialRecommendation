@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +22,27 @@ import java.io.*;
 
 public class RecommendationHome extends HttpServlet {
 	private String error_msg;
-
+	HttpSession session;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// response.setContentType("text/html");
 		// PrintWriter pw = response.getWriter();
 		// displayRegistration(request, response, pw, false);
+		this.session = request.getSession(true);
+		if (session.getAttribute("username") == null) {
+			Cookie[] cookies = request.getCookies();
+			// iterate each cookie
+			for (Cookie cookie : cookies) {
+				// display only the cookie with the name 'website'
+				if (cookie.getName().equals("username")) {
+					System.out.println(cookie.getValue());
+					cookie.setValue("");
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+				}
+			}
+		}
 		String value = request.getParameter("searchdata");
 		PrintWriter pw = response.getWriter();
 		Utilities utility = new Utilities(request, pw);
@@ -150,6 +166,7 @@ public class RecommendationHome extends HttpServlet {
 			//pw.println(
 			//		"				<div id='writereview'><input type='submit' value='Write Review' class='btnreview' style='width:160px;margin-top: 20px;float: left;margin-left: 100px;height: 40px;font-size: 20px;background-color: #800000;border: none;'></div>");
 			
+
 			pw.print("<div id='viewreview'><form method='post' action='ViewReview'>"+"<input type='hidden' name='name' value='"+arrayListTextSearch.get(i).getName()+"'>"+
 					"<input type='hidden' name='streetaddress'  value='"+arrayListTextSearch.get(i).getFormatted_address()+"'>"+
 					"<input type='hidden' name='lat' id ='lat' value='"+arrayListTextSearch.get(i).getLat()+"'>"+
@@ -158,10 +175,15 @@ public class RecommendationHome extends HttpServlet {
 					"<input type='hidden' name='userstotalrating' value='"+arrayListTextSearch.get(i).getUser_ratings_total()+"'>"+
 					"<input type='submit' value='View Review' class='btnreview' style='width:160px;background-color: #800000;margin-top: 20px;float: left;margin-left: 65px;height: 40px;font-size: 20px;border: none;' ></form></div>");
 			
-			pw.print("<div id='writereview'><form method='post' action='WriteReview'>"+"<input type='hidden' name='name' value='"+arrayListTextSearch.get(i).getName()+"'>"+
-					"<input type='hidden' id='streetaddress' name='streetaddress' value='"+arrayListTextSearch.get(i).getFormatted_address()+"'>"+
+
+			pw.print("<div id='writereview'><form method='post' action='WriteReview'>"+
+					"<input type='hidden' name='name' value='"+arrayListTextSearch.get(i).getName()+"'>"+
+					"<input type='hidden' name='streetaddress' value='"+arrayListTextSearch.get(i).getFormatted_address()+"'>"+
+					"<input type='hidden' name='lat' id ='lat' value='" + arrayListTextSearch.get(i).getLat() + "'>"+
+					"<input type='hidden' name='lng' id ='lng' value='" + arrayListTextSearch.get(i).getLng() + "'>"+
 					"<input type='hidden' name='rating' value='"+arrayListTextSearch.get(i).getRating()+"'>"+
 					"<input type='hidden' name='userstotalrating' value='"+arrayListTextSearch.get(i).getUser_ratings_total()+"'>"+
+					"<input type='hidden' name='photoUrl' value='" + arrayListTextSearch.get(i).getPhoto_url() + "'>"+
 					"<input type='submit' value='Write Review' class='btnreview' style='width:160px;margin-top: 20px;float: left;margin-left: 100px;height: 40px;font-size: 20px;background-color: #800000;border: none;' ></form></div>");
 			
 			

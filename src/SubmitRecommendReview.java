@@ -33,7 +33,14 @@
     String StreetAddress=request.getParameter("StreetAddress");
 	String reviewrating=request.getParameter("reviewrating");
 	String comment=request.getParameter("comment");
-	String message=utility.storeReview(Name,StreetAddress,reviewrating,comment);	
+	// String message=utility.storeReview(Name,StreetAddress,reviewrating,comment);	
+	
+	String internetRating=request.getParameter("rating");
+	String userstotalrating=request.getParameter("userstotalrating");
+	String photoUrl=request.getParameter("photoUrl");
+	String lat=request.getParameter("lat");
+	String lng=request.getParameter("lng");
+	String message=utility.storeReview(Name,StreetAddress,reviewrating,comment,internetRating,userstotalrating,photoUrl,lat,lng);	
 	
    	System.out.println(message);	
 	utility.printHtml("Header.html");

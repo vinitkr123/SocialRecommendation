@@ -22,7 +22,7 @@ public class TextSearch {
 	
 	@SerializedName("lat")
 	private String lat;
-	
+
 	@SerializedName("lng")
 	private String lng;
 	
@@ -56,6 +56,7 @@ public class TextSearch {
 	public void setLng(String lng) {
 		this.lng = lng;
 	}
+
 	public String getPhoto_url() {
 		return photo_url;
 	}
@@ -91,6 +92,31 @@ public class TextSearch {
 	}
 	public void setUser_ratings_total(String user_ratings_total) {
 		this.user_ratings_total = user_ratings_total;
+	}
+	
+	public String getPlaceId() {
+		return placeId;
+	}
+	public void setPlaceId(String placeId) {
+		this.placeId = placeId;
+	}
+	public String getGmap() {
+		return gmap;
+	}
+	public void setGmap(String gmap) {
+		this.gmap = gmap;
+	}
+	public String getLat() {
+		return lat;
+	}
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+	public String getLng() {
+		return lng;
+	}
+	public void setLng(String lng) {
+		this.lng = lng;
 	}
 	
 	

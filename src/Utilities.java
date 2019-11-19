@@ -62,8 +62,8 @@ public class Utilities extends HttpServlet {
         //to print the right navigation in header of username cart and logout etc
         if (file.equals("Header.html")) {
             result = result + "<div id='menu' style='float: right;'><ul>";
-            if (session.getAttribute("userType") != null) {
-                String username = session.getAttribute("userType").toString();
+            if (session.getAttribute("username") != null) {
+                String username = session.getAttribute("username").toString();
                 username = Character.toUpperCase(username.charAt(0)) + username.substring(1);
                         result = result +"<li style='background-color: #800000; float: left;border: 1px solid #fff8e7; text-align: center; border-radius: 4px;'><a><span class='glyphicon'>Hello," + username+"</span></a></li>"
                                 + "<li style='background-color: #800000; float: left;  border: 1px solid #fff8e7;text-align: center; border-radius: 4px;'>><a href='Logout'><span class='glyphicon'>Logout</span><div id='latitude' style='display:none'>"+session.getAttribute("latitute")+"</div></a></li>";
@@ -132,9 +132,19 @@ public class Utilities extends HttpServlet {
         return session.getAttribute("username") != null;
     }
     
+    public String username(){
+		if (session.getAttribute("username")!=null)
+			return session.getAttribute("username").toString();
+		return null;
+	}
     
-    public String storeReview(String name,String streetaddress,String reviewrating,String comment){
-    	String message=MySQLDataStoreUtilities.insertReview(name,streetaddress,reviewrating,comment,session.getAttribute("userid").toString());
+    
+    public String storeReview(String name,String streetaddress,String reviewrating,String comment,String internetRating, String userTotalRating, String photoURL,
+    		String lat, String lng){
+    	String message=MySQLDataStoreUtilities.insertReview(name,streetaddress,reviewrating,comment,
+    			session.getAttribute("userid").toString(),
+    			internetRating, userTotalRating, photoURL,
+    			lat,lng);
     	if(!message.equals("Successfull"))
 		{ return "UnSuccessfull";
 		}

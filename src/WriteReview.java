@@ -32,6 +32,12 @@ public class WriteReview extends HttpServlet{
             	String StreetAddress = request.getParameter("streetaddress");
             	//String Rating = request.getParameter("rating");
             	//String UserTotalRating = request.getParameter("userstotalrating");
+            	String Rating = request.getParameter("rating");
+            	String UserTotalRating = request.getParameter("userstotalrating");
+            	String photoUrl = request.getParameter("photoUrl");
+            	String latitude = request.getParameter("lat");
+            	String longitude = request.getParameter("lng");
+            	
             	utility.printHtml("Header.html");
             	//utility.printHtml("LeftNavigationBar.html");
             	pw.print("<form name = 'WriteReview' action='SubmitRecommendReview' method='post'>");
@@ -46,6 +52,11 @@ public class WriteReview extends HttpServlet{
     	        pw.print("<tr><td> Street Address:</td><td>");
                 pw.print(StreetAddress);
                 pw.print("<input type='hidden' name='StreetAddress' value='"+StreetAddress+"'>");
+                pw.print("<input type='hidden' name='rating' value='"+Rating+"'>");
+                pw.print("<input type='hidden' name='userstotalrating' value='"+UserTotalRating+"'>");
+                pw.print("<input type='hidden' name='photoUrl' value='"+photoUrl+"'>");
+                pw.print("<input type='hidden' name='lat' value='"+latitude+"'>");
+                pw.print("<input type='hidden' name='lng' value='"+longitude+"'>");
                 pw.print("</td></tr><table>");
 //        		pw.print("<tr><td> Rating:</td><td>");
 //                pw.print(Rating);
