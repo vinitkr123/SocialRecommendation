@@ -55,8 +55,8 @@ public class AdminHome extends HttpServlet {
 			// pw.print("<form method='post' action='Login'>");
 			pw.print("<div>"+ source +"</div>");
 			pw.print("<table style='width:100%'>");
-			String val_python = "/SocialRecommendationSystem/AdminHome?type=surprise&operation=changesource";
-			String val_recombee = "/SocialRecommendationSystem/AdminHome?type=recombee&operation=changesource";
+			String val_python = "/SocialRecommendation/AdminHome?type=surprise&operation=changesource";
+			String val_recombee = "/SocialRecommendation/AdminHome?type=recombee&operation=changesource";
 			pw.print("<td><a href="+ val_python +">Use Surprise</a></td>");
 			pw.print("<td><a href="+ val_recombee +">Use Recombee</a></td>");
 			// pw.print("<tr><td> <input type='submit' class='btnbuy' value='surprise'></input> </td></tr>");

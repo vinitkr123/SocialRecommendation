@@ -66,9 +66,21 @@ public class Recommend extends HttpServlet {
 			HashMap<String,String> placesRecmMap = new HashMap<String,String>();
 			try {
 
-				java.nio.file.Path path = java.nio.file.Paths.get(TOMCAT_HOME, "webapps", "SocialRecommendationSystem", "output.csv");
+				/*java.nio.file.Path path = java.nio.file.Paths.get(TOMCAT_HOME, "webapps", "SocialRecommendationSystem", "output.csv");
 	            // br = new BufferedReader(new FileReader(new File(TOMCAT_HOME+"\\webapps\\Tutorial_7\\matrixFactorizationBasedRecommendations.csv")));
-				br = new BufferedReader(new FileReader(new File(path.toString())));
+				br = new BufferedReader(new FileReader(new File(path.toString()))); */
+				
+				MySQLDataStoreUtilities sql = new MySQLDataStoreUtilities();
+				java.nio.file.Path path = null;
+				if(sql.selectAppConfiguration().equals("surprise")) {
+					path = java.nio.file.Paths.get(TOMCAT_HOME, "webapps", "SocialRecommendationSystem", "output.csv");
+				}
+				else {
+					path = java.nio.file.Paths.get(TOMCAT_HOME, "webapps", "SocialRecommendationSystem", "output_recombee.csv");
+				}
+
+	            br = new BufferedReader(new FileReader(new File(path.toString())));
+				
 	            while ((line = br.readLine()) != null) {
 
 	                // use comma as separator
