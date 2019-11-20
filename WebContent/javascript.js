@@ -3,11 +3,41 @@ var isIE;
 var searchId;
 var completeTable;
 var autoRow;
+var map;
 
 function init() {
     searchId = document.getElementById("searchId");
     completeTable = document.getElementById("complete-table");
     autoRow = document.getElementById("auto-row");
+}
+
+/*function latlongMap(){
+	debugger;
+	 var lat = document.getElementById("latlong").innerHTML.trim();
+     alert(lat.trim());
+	alert("into initmap");
+    map = window.open(new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 8
+    })); 
+  }*/
+
+function callMaps()
+{
+	var lat = document.getElementById("lat").value;
+	var lng = document.getElementById("lng").value;
+	
+	var street = document.getElementById("streetaddress").value;
+	alert(street);
+	/*url ="https://maps.googleapis.com/maps/api/staticmap?zoom=15&maptype=roadmap" +
+			"&size=600x300&markers=color:red%7Clabel:C%7C"+lat+","+lng+"&key=AIzaSyAbgbsd1R1T4yzOzyJrp5uC3YTy1jIWgHg";
+	
+	window.open(url,"_open");
+	*/
+	
+	var iframe = '<iframe width="300"  height="50" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAbgbsd1R1T4yzOzyJrp5uC3YTy1jIWgHg &q=place_id:ChIJs--MqP1YwokRBwAhjXWIHn8 " allowfullscreen></iframe>';
+	document.getElementById('map2').innerHTML = iframe;
+	//alert(iframe);
 }
 
 function doCompletion() {
@@ -101,3 +131,35 @@ function parseMessages(responseXML) {
         }
     }
 }
+
+
+
+function modal()
+{
+	
+	// Get the modal
+	var modal = document.getElementById("myModal");
+
+	// Get the button that opens the modal
+	var btn = document.getElementById("myBtn");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks the button, open the modal 
+	btn.onclick = function() {
+	  modal.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	  modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	  if (event.target == modal) {
+	    modal.style.display = "none";
+	  }
+	}
+	}
